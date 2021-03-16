@@ -1,0 +1,20 @@
+{
+  "name": "rescript-express",
+  "version": "0.1.0",
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    },
+    {
+      "type": "dev",
+      "dir": "example",
+      "subdirs": true
+    }
+  ],
+  "package-specs": {
+    "module": "es6",
+    "suffix": ".mjs",
+    "in-source": true
+  }
+}

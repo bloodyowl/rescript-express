@@ -1,0 +1,20 @@
+{
+  "name": "rescript-express",
+  "version": "0.1.0",
+  "scripts": {
+    "clean": "bsb -clean-world",
+    "build": "bsb -make-world",
+    "watch": "bsb -make-world -w"
+  },
+  "keywords": [
+    "BuckleScript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "bs-platform": "^9.0.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
