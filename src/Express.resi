@@ -1,7 +1,5 @@
 type express
 
-// "default" & @scope("default") seem to conflict a bit right now
-// https://github.com/rescript-lang/rescript-compiler/issues/5004
 @module("express") external express: unit => express = "default"
 
 type req
@@ -12,7 +10,6 @@ type handler = (req, res) => unit
 
 external asMiddleware: express => middleware = "%identity"
 
-// The *Middleware suffixes aren't really nice but avoids forcing people to disable warning 44
 @module("express") @scope("default") external jsonMiddleware: unit => middleware = "json"
 @module("express") @scope("default") external jsonMiddlewareWithOptions: {..} => middleware = "json"
 @module("express") @scope("default") external rawMiddleware: unit => middleware = "raw"
@@ -56,7 +53,7 @@ external listenWithHostAndCallback: (
 
 type method = [#GET | #POST | #PUT | #DELETE | #PATCH]
 
-module Req = {
+module Req: {
   // req properties
   @get external baseUrl: req => string = "baseUrl"
   @get external body: req => 'a = "body"
@@ -78,35 +75,20 @@ module Req = {
   @get external subdomains: req => array<string> = "subdomains"
   @get external xhr: req => bool = "xhr"
 
-  // This is a bit unfortunate, as it breaks the zero-cost philosophy,
-  // but the `string | false` signature doesn't play well with an ML type-system
-  external asString: 'a => string = "%identity"
-  let parseValue = value =>
-    switch Js.typeof(value) {
-    | "boolean" => None
-    | _ => Some(value->asString)
-    }
-
   // req methods
-  @send external accepts: (req, array<string>) => 'a = "accepts"
-  @send external acceptsCharset: (req, array<string>) => 'a = "acceptsCharset"
-  @send external acceptsEncodings: (req, array<string>) => 'a = "acceptsEncodings"
-  @send external acceptsLanguages: (req, array<string>) => 'a = "acceptsLanguages"
-
-  let accepts = (req, value) => req->accepts(value)->parseValue
-  let acceptsCharset = (req, value) => req->acceptsCharset(value)->parseValue
-  let acceptsEncodings = (req, value) => req->acceptsEncodings(value)->parseValue
-  let acceptsLanguages = (req, value) => req->acceptsLanguages(value)->parseValue
+  let accepts: (req, array<string>) => option<string>
+  let acceptsCharset: (req, array<string>) => option<string>
+  let acceptsEncodings: (req, array<string>) => option<string>
+  let acceptsLanguages: (req, array<string>) => option<string>
 
   @send external get: (req, string) => option<string> = "get"
-  @send external is: (req, string) => 'a = "is"
 
-  let is = (req, value) => req->is(value)->parseValue
+  let is: (req, string) => option<string>
 
   @send external param: (req, string) => option<string> = "param"
 }
 
-module Res = {
+module Res: {
   // res properties
   @get external headersSent: res => bool = "headersSent"
   @get external locals: res => {..} = "locals"
