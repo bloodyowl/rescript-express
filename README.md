@@ -2,14 +2,37 @@
 
 > (nearly) zero-cost bindings to express 
 
-## Goals
+## Installation
 
-- Be as familiar as possible to people used to express
-- Bring no overhead
+Run the following in your console:
 
-## Questions for later
+```console
+$ yarn add rescript-express express
+```
 
-- Should we parametrize `req` & `res`?
+Then add `rescript-express` to your `bsconfig.json`'s `bs-dependencies`:
+
+```diff
+ {
+   "bs-dependencies": [
++    "rescript-express"
+   ]
+ }
+```
+
+## API
+
+The API closely matches the express one. You can refer to the [express docs](https://expressjs.com/en/4x/api.html).
+
+### Notable differences
+
+- `Router` isn't implemented
+- `express.json`, `express.raw`, `express.text`, `express.urlencoded`, `express.static` are all suffixed with `Middleware` to prevent name clashing.
+- `accept*` and `is` return an option intead of a string/boolean
+
+You can check [the interface file](./src/Express.resi) to see the exposed APIs.
+
+## Example
 
 ```rescript
 open Express
