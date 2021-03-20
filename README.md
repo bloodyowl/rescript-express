@@ -20,6 +20,15 @@ Then add `rescript-express` to your `bsconfig.json`'s `bs-dependencies`:
  }
 ```
 
+## Module system
+
+For now, due to compability issues between commonJS and ES6 module, the bindings expose two `express` functions:
+
+- `express` for ES6
+- `expressCjs` to CommonJS
+
+Be careful to pick the right one given your compiler's configuration.
+
 ## API
 
 The API closely matches the express one. You can refer to the [express docs](https://expressjs.com/en/4x/api.html).
@@ -55,4 +64,43 @@ app->post("/ping", (req, res) => {
   | None => res->status(400)->json({"error": `Missing name`})
   }
 })
-````
+```
+
+Generates the following
+
+```js
+var Express = require("express");
+
+var app = Express();
+
+app.use(Express.json());
+
+app.get("/", function (_req, res) {
+  res.status(200).json({
+    ok: true,
+  });
+});
+
+app.post("/ping", function (req, res) {
+  var body = req.body;
+  var name = body.name;
+  if (name == null) {
+    res.status(400).json({
+      error: "Missing name",
+    });
+  } else {
+    res.status(200).json({
+      message: "Hello " + name,
+    });
+  }
+});
+
+app.use(function (err, _req, res, _next) {
+  console.error(err);
+  res.status(500).end("An error occured");
+});
+
+app.listen(8081, function (param) {
+  console.log("Listening on http://localhost:" + String(8081));
+});
+```

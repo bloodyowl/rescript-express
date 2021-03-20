@@ -1,6 +1,6 @@
 open Express
 
-let app = express()
+let app = expressCjs()
 
 app->use(jsonMiddleware())
 
@@ -25,4 +25,7 @@ app->useWithError((err, _req, res, _next) => {
   let _ = res->status(500)->endWithData("An error occured")
 })
 
-let _ = app->listen(8081)
+let port = 8081
+let _ = app->listenWithCallback(port, _ => {
+  Js.Console.log(`Listening on http://localhost:${port->Belt.Int.toString}`)
+})

@@ -1,5 +1,6 @@
 type express
 
+@module external expressCjs: unit => express = "express"
 @module("express") external express: unit => express = "default"
 
 type req
@@ -11,18 +12,18 @@ type handler = (req, res) => unit
 
 external asMiddleware: express => middleware = "%identity"
 
-@module("express") @scope("default") external jsonMiddleware: unit => middleware = "json"
-@module("express") @scope("default") external jsonMiddlewareWithOptions: {..} => middleware = "json"
-@module("express") @scope("default") external rawMiddleware: unit => middleware = "raw"
-@module("express") @scope("default") external rawMiddlewareWithOptions: {..} => middleware = "raw"
-@module("express") @scope("default") external textMiddleware: unit => middleware = "text"
-@module("express") @scope("default") external textMiddlewareWithOptions: {..} => middleware = "text"
-@module("express") @scope("default")
+@module("express") external jsonMiddleware: unit => middleware = "json"
+@module("express") external jsonMiddlewareWithOptions: {..} => middleware = "json"
+@module("express") external rawMiddleware: unit => middleware = "raw"
+@module("express") external rawMiddlewareWithOptions: {..} => middleware = "raw"
+@module("express") external textMiddleware: unit => middleware = "text"
+@module("express") external textMiddlewareWithOptions: {..} => middleware = "text"
+@module("express")
 external urlencodedMiddleware: unit => middleware = "urlencoded"
-@module("express") @scope("default")
+@module("express")
 external urlencodedMiddlewareWithOptions: {..} => middleware = "urlencoded"
-@module("express") @scope("default") external staticMiddleware: string => middleware = "static"
-@module("express") @scope("default")
+@module("express") external staticMiddleware: string => middleware = "static"
+@module("express")
 external staticMiddlewareWithOptions: (string, {..}) => middleware = "static"
 
 @send external use: (express, middleware) => unit = "use"
@@ -45,13 +46,13 @@ type server
 
 @send external listen: (express, int) => server = "listen"
 @send
-external listenWithCallback: (express, int, (option<Js.Exn.t>, unit) => unit) => server = "listen"
+external listenWithCallback: (express, int, option<Js.Exn.t> => unit) => server = "listen"
 @send
 external listenWithHostAndCallback: (
   express,
   ~port: int,
   ~host: string,
-  (option<Js.Exn.t>, unit) => unit,
+  option<Js.Exn.t> => unit,
 ) => server = "listen"
 
 type method = [#GET | #POST | #PUT | #DELETE | #PATCH]

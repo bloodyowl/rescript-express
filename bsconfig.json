@@ -13,8 +13,8 @@
     }
   ],
   "package-specs": {
-    "module": "es6",
-    "suffix": ".mjs",
+    "module": "commonjs",
+    "suffix": ".js",
     "in-source": true
   }
 }
