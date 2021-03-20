@@ -11,12 +11,12 @@ app->get("/", (_req, res) => {
 
 app->post("/ping", (req, res) => {
   open Req
-  // might be fixed later so that we can use
-  // req->body["name"]
-  // https://github.com/rescript-lang/syntax/issues/203
-  let name = (req->body)["name"]
+  let body = req->body
   open Res
-  let _ = res->status(200)->json({"message": `Hello ${name}`})
+  let _ = switch body["name"]->Js.Nullable.toOption {
+  | Some(name) => res->status(200)->json({"message": `Hello ${name}`})
+  | None => res->status(400)->json({"error": `Missing name`})
+  }
 })
 
 app->useWithError((err, _req, res, _next) => {

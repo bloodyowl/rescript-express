@@ -1,6 +1,6 @@
 # rescript-express
 
-> Work in progress
+> (nearly) zero-cost bindings to express 
 
 ## Goals
 
@@ -25,10 +25,11 @@ app->get("/", (_req, res) => {
 
 app->post("/ping", (req, res) => {
   open Req
-  let name = (req->body)["name"]
+  let body = req->body
   open Res
-  let _ = res->status(200)->json({"message": `Hello ${name}`})
+  let _ = switch body["name"]->Js.Nullable.toOption {
+  | Some(name) => res->status(200)->json({"message": `Hello ${name}`})
+  | None => res->status(400)->json({"error": `Missing name`})
+  }
 })
-
-let _ = app->listen(8081)
 ````

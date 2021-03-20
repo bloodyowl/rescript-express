@@ -7,14 +7,16 @@
     "watch": "bsb -make-world -w"
   },
   "keywords": [
-    "BuckleScript"
+    "ReScript",
+    "express"
   ],
-  "author": "",
+  "author": "bloodyowl <bloodyowl@icloud.com>",
   "license": "MIT",
   "devDependencies": {
-    "bs-platform": "^9.0.2"
+    "bs-platform": "^9.0.2",
+    "express": "^4.17.1"
   },
-  "dependencies": {
+  "peerDependencies": {
     "express": "^4.17.1"
   }
 }
