@@ -19,4 +19,10 @@ app->post("/ping", (req, res) => {
   let _ = res->status(200)->json({"message": `Hello ${name}`})
 })
 
+app->useWithError((err, _req, res, _next) => {
+  Js.Console.error(err)
+  open Res
+  let _ = res->status(500)->endWithData("An error occured")
+})
+
 let _ = app->listen(8081)

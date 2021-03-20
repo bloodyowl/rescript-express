@@ -8,6 +8,7 @@ type req
 type res
 
 type middleware = (req, res, unit => unit) => unit
+type middlewareWithError = (Js.Exn.t, req, res, unit => unit) => unit
 type handler = (req, res) => unit
 
 external asMiddleware: express => middleware = "%identity"
@@ -29,6 +30,9 @@ external staticMiddlewareWithOptions: (string, {..}) => middleware = "static"
 
 @send external use: (express, middleware) => unit = "use"
 @send external useWithPath: (express, string, middleware) => unit = "use"
+
+@send external useWithError: (express, middlewareWithError) => unit = "use"
+@send external useWithPathAndError: (express, string, middlewareWithError) => unit = "use"
 
 @send external get: (express, string, handler) => unit = "get"
 @send external post: (express, string, handler) => unit = "post"
