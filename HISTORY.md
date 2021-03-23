@@ -1,3 +1,9 @@
+## 0.2.0
+
+Changes:
+
+- Remove the need for submodules (22d7e67)
+
 ## 0.1.1
 
 Changes:
