@@ -37,6 +37,8 @@ external staticMiddlewareWithOptions: (string, {..}) => middleware = "static"
 
 @send external get: (express, string, handler) => unit = "get"
 @send external post: (express, string, handler) => unit = "post"
+@send external delete: (express, string, handler) => unit = "delete"
+@deprecated("Express 5.0 deprecates app.del(), use app.delete() instead")
 @send external del: (express, string, handler) => unit = "del"
 @send external patch: (express, string, handler) => unit = "patch"
 @send external put: (express, string, handler) => unit = "put"
