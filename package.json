@@ -1,6 +1,6 @@
 {
   "name": "rescript-express",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "scripts": {
     "clean": "bsb -clean-world",
     "build": "bsb -make-world",
