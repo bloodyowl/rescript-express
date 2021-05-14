@@ -1,3 +1,9 @@
+## 0.3.0
+
+Changes:
+
+- Deprecate `del` in favor of `delete`, thanks [@GeoffreyY](https://github.com/GeoffreyY) (c376ec2)
+
 ## 0.2.0
 
 Changes:
