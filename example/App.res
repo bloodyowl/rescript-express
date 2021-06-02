@@ -16,6 +16,10 @@ app->post("/ping", (req, res) => {
   }
 })
 
+app->all("/allRoute", (_req, res) => {
+  res->status(200)->json({"ok": true})->ignore
+})
+
 app->useWithError((err, _req, res, _next) => {
   Js.Console.error(err)
   let _ = res->status(500)->endWithData("An error occured")

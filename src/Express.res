@@ -42,6 +42,7 @@ external staticMiddlewareWithOptions: (string, {..}) => middleware = "static"
 @send external del: (express, string, handler) => unit = "del"
 @send external patch: (express, string, handler) => unit = "patch"
 @send external put: (express, string, handler) => unit = "put"
+@send  external all: (express, string, handler) => unit = "all"
 
 @send external enable: (express, string) => unit = "enable"
 @send external enabled: (express, string) => bool = "enabled"
