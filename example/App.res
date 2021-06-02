@@ -2,6 +2,20 @@ open Express
 
 let app = expressCjs()
 
+let router = app->router
+
+router->Router.use((req, _res, next) => {
+  Js.log(req)
+  next()
+})
+
+router->Router.useWithError((err, _req, res, _next) => {
+  Js.Console.error(err)
+  let _ = res->status(500)->endWithData("An error occured")
+})
+
+app->useRouter(router)
+
 app->use(jsonMiddleware())
 
 app->get("/", (_req, res) => {
