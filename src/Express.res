@@ -42,7 +42,7 @@ external staticMiddlewareWithOptions: (string, {..}) => middleware = "static"
 @send external del: (express, string, handler) => unit = "del"
 @send external patch: (express, string, handler) => unit = "patch"
 @send external put: (express, string, handler) => unit = "put"
-@send  external all: (express, string, handler) => unit = "all"
+@send external all: (express, string, handler) => unit = "all"
 
 @send external enable: (express, string) => unit = "enable"
 @send external enabled: (express, string) => bool = "enabled"
@@ -143,7 +143,6 @@ let is = (req, value) => req->is(value)->parseValue
 @send external \"type": (res, string) => string = "type"
 @send external vary: (res, string) => res = "vary"
 
-
 module Router = {
   type t
   @send external use: (t, middleware) => unit = "use"
@@ -159,7 +158,7 @@ module Router = {
   @send external del: (t, string, handler) => unit = "del"
   @send external patch: (t, string, handler) => unit = "patch"
   @send external put: (t, string, handler) => unit = "put"
-  @send  external all: (t, string, handler) => unit = "all"
+  @send external all: (t, string, handler) => unit = "all"
 
   type paramHandler = (req, res, unit => unit, string, string) => unit
 
