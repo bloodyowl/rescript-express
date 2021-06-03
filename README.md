@@ -35,7 +35,7 @@ The API closely matches the express one. You can refer to the [express docs](htt
 
 ### Notable differences
 
-- `Router` isn't implemented
+- `Router` is in sub-module
 - `express.json`, `express.raw`, `express.text`, `express.urlencoded`, `express.static` are all suffixed with `Middleware` to prevent name clashing.
 - `accept*` and `is` return an option intead of a string/boolean
 - `req.get` is called `getRequestHeader` and `res.get` is called `getResponseHeader`
