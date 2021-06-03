@@ -2,6 +2,20 @@ open Express
 
 let app = expressCjs()
 
+let router = app->router
+
+router->Router.use((req, _res, next) => {
+  Js.log(req)
+  next()
+})
+
+router->Router.useWithError((err, _req, res, _next) => {
+  Js.Console.error(err)
+  let _ = res->status(500)->endWithData("An error occured")
+})
+
+app->useRouter(router)
+
 app->use(jsonMiddleware())
 
 app->get("/", (_req, res) => {
@@ -14,6 +28,10 @@ app->post("/ping", (req, res) => {
   | Some(name) => res->status(200)->json({"message": `Hello ${name}`})
   | None => res->status(400)->json({"error": `Missing name`})
   }
+})
+
+app->all("/allRoute", (_req, res) => {
+  res->status(200)->json({"ok": true})->ignore
 })
 
 app->useWithError((err, _req, res, _next) => {

@@ -42,6 +42,7 @@ external staticMiddlewareWithOptions: (string, {..}) => middleware = "static"
 @send external del: (express, string, handler) => unit = "del"
 @send external patch: (express, string, handler) => unit = "patch"
 @send external put: (express, string, handler) => unit = "put"
+@send external all: (express, string, handler) => unit = "all"
 
 @send external enable: (express, string) => unit = "enable"
 @send external enabled: (express, string) => bool = "enabled"
@@ -125,3 +126,32 @@ let is: (req, string) => option<string>
 @send external status: (res, int) => res = "status"
 @send external \"type": (res, string) => string = "type"
 @send external vary: (res, string) => res = "vary"
+
+module Router: {
+  type t
+  @send external use: (t, middleware) => unit = "use"
+  @send external useWithPath: (t, string, middleware) => unit = "use"
+
+  @send external useWithError: (t, middlewareWithError) => unit = "use"
+  @send external useWithPathAndError: (t, string, middlewareWithError) => unit = "use"
+
+  @send external get: (t, string, handler) => unit = "get"
+  @send external post: (t, string, handler) => unit = "post"
+  @send external delete: (t, string, handler) => unit = "delete"
+  @deprecated("Express 5.0 deprecates app.del(), use app.delete() instead")
+  @send external del: (t, string, handler) => unit = "del"
+  @send external patch: (t, string, handler) => unit = "patch"
+  @send external put: (t, string, handler) => unit = "put"
+  @send external all: (t, string, handler) => unit = "all"
+
+  type paramHandler = (req, res, unit => unit, string, string) => unit
+
+  @send external param: (t, string, paramHandler) => unit = "param"
+  @deprecated("deprecated as of v4.11.0")
+  @send external defineParamBehavior: ((string, 'a) => paramHandler) => unit = "param"
+
+  @send external route: string => t = "route"
+}
+
+@send external useRouter: (express, Router.t) => unit = "use"
+@send external router: express => Router.t = "Router"
