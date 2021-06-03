@@ -129,6 +129,7 @@ let is: (req, string) => option<string>
 
 module Router: {
   type t
+  @module("express") external make: () => t = "Router"
   @send external use: (t, middleware) => unit = "use"
   @send external useWithPath: (t, string, middleware) => unit = "use"
 
@@ -154,4 +155,3 @@ module Router: {
 }
 
 @send external useRouter: (express, Router.t) => unit = "use"
-@send external router: express => Router.t = "Router"

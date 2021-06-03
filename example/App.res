@@ -2,7 +2,7 @@ open Express
 
 let app = expressCjs()
 
-let router = app->router
+let router = Router.make()
 
 router->Router.use((req, _res, next) => {
   Js.log(req)
