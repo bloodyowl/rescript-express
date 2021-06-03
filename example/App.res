@@ -14,7 +14,7 @@ router->Router.useWithError((err, _req, res, _next) => {
   let _ = res->status(500)->endWithData("An error occured")
 })
 
-app->useRouter(router)
+app->useRouterWithPath("/someRoute", router)
 
 app->use(jsonMiddleware())
 

@@ -171,3 +171,4 @@ module Router = {
 }
 
 @send external useRouter: (express, Router.t) => unit = "use"
+@send external useRouterWithPath: (express, string, Router.t) => unit = "use"
