@@ -1,3 +1,9 @@
+## 0.4.0
+
+Feature:
+
+- Add support for `Router`, thanks [@sudo97](https://github.com/sudo97)! (49d1af2)
+
 ## 0.3.0
 
 Changes:
