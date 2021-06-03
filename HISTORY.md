@@ -1,3 +1,9 @@
+## 0.4.1
+
+Feature:
+
+- Fix `Router` bindings, thanks [@sudo97](https://github.com/sudo97)! (ad722dd)
+
 ## 0.4.0
 
 Feature:
