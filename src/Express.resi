@@ -89,6 +89,7 @@ let acceptsCharset: (req, array<string>) => option<string>
 let acceptsEncodings: (req, array<string>) => option<string>
 let acceptsLanguages: (req, array<string>) => option<string>
 
+@send external flushHeaders: req => 'a = "flushHeaders"
 @send external getRequestHeader: (req, string) => option<string> = "get"
 
 let is: (req, string) => option<string>
@@ -116,6 +117,9 @@ let is: (req, string) => option<string>
 @send external jsonp: (res, 'a) => res = "jsonp"
 @send external links: (res, Js.Dict.t<string>) => res = "links"
 @send external location: (res, string) => res = "location"
+@send external on: (res, @string [
+  #close(unit => unit)
+]) => unit = "on"
 @send external redirect: (res, string) => res = "redirect"
 @send external redirectWithStatusCode: (res, ~statusCode: int, string) => res = "redirect"
 @send external send: (res, 'a) => res = "send"
@@ -126,6 +130,7 @@ let is: (req, string) => option<string>
 @send external status: (res, int) => res = "status"
 @send external \"type": (res, string) => string = "type"
 @send external vary: (res, string) => res = "vary"
+@send external write: (res, string) => bool = "write"
 
 module Router: {
   type t

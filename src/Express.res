@@ -104,6 +104,7 @@ let acceptsCharset = (req, value) => req->acceptsCharset(value)->parseValue
 let acceptsEncodings = (req, value) => req->acceptsEncodings(value)->parseValue
 let acceptsLanguages = (req, value) => req->acceptsLanguages(value)->parseValue
 
+@send external flushHeaders: req => 'a = "flushHeaders"
 @send external getRequestHeader: (req, string) => option<string> = "get"
 @send external is: (req, string) => 'a = "is"
 
@@ -132,6 +133,9 @@ let is = (req, value) => req->is(value)->parseValue
 @send external jsonp: (res, 'a) => res = "jsonp"
 @send external links: (res, Js.Dict.t<string>) => res = "links"
 @send external location: (res, string) => res = "location"
+@send external on: (res, @string [
+  | #close(unit => unit)
+]) => unit = "on"
 @send external redirect: (res, string) => res = "redirect"
 @send external redirectWithStatusCode: (res, ~statusCode: int, string) => res = "redirect"
 @send external send: (res, 'a) => res = "send"
@@ -142,6 +146,7 @@ let is = (req, value) => req->is(value)->parseValue
 @send external status: (res, int) => res = "status"
 @send external \"type": (res, string) => string = "type"
 @send external vary: (res, string) => res = "vary"
+@send external write: (res, string) => bool = "write"
 
 module Router = {
   type t
