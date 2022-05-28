@@ -133,9 +133,7 @@ let is = (req, value) => req->is(value)->parseValue
 @send external jsonp: (res, 'a) => res = "jsonp"
 @send external links: (res, Js.Dict.t<string>) => res = "links"
 @send external location: (res, string) => res = "location"
-@send external on: (res, @string [
-  | #close(unit => unit)
-]) => unit = "on"
+@send external onClose: (res, @as("close") _, unit => unit) => unit = "on"
 @send external redirect: (res, string) => res = "redirect"
 @send external redirectWithStatusCode: (res, ~statusCode: int, string) => res = "redirect"
 @send external send: (res, 'a) => res = "send"

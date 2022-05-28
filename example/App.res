@@ -45,9 +45,9 @@ app->get("/stream", (req, res) => {
   res->set("Connection", "keep-alive")
   req->flushHeaders->ignore
 
-  res->on(#close(() => {
+  res->onClose(() => {
     Js.Console.log("Stream Ended")
-  }))
+  })
 
   res->write(`data: Hello World`)->ignore
   res->write(`data: Hello World`)->ignore
