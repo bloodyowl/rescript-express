@@ -1,9 +1,6 @@
 type express
 
-// "default" &  seem to conflict a bit right now
-// https://github.com/rescript-lang/rescript-compiler/issues/5004
-@module external expressCjs: unit => express = "express"
-@module("express") external express: unit => express = "default"
+@module external express: unit => express = "express"
 
 type req
 type res
@@ -38,8 +35,8 @@ external staticMiddlewareWithOptions: (string, {..}) => middleware = "static"
 @send external get: (express, string, handler) => unit = "get"
 @send external post: (express, string, handler) => unit = "post"
 @send external delete: (express, string, handler) => unit = "delete"
-@deprecated("Express 5.0 deprecates app.del(), use app.delete() instead")
-@send external del: (express, string, handler) => unit = "del"
+@deprecated("Express 5.0 deprecates app.del(), use app.delete() instead") @send
+external del: (express, string, handler) => unit = "del"
 @send external patch: (express, string, handler) => unit = "patch"
 @send external put: (express, string, handler) => unit = "put"
 @send external all: (express, string, handler) => unit = "all"
@@ -145,7 +142,7 @@ let is = (req, value) => req->is(value)->parseValue
 
 module Router = {
   type t
-  @module("express") external make: () => t = "Router"
+  @module("express") external make: unit => t = "Router"
   @send external use: (t, middleware) => unit = "use"
   @send external useWithPath: (t, string, middleware) => unit = "use"
 
@@ -155,8 +152,8 @@ module Router = {
   @send external get: (t, string, handler) => unit = "get"
   @send external post: (t, string, handler) => unit = "post"
   @send external delete: (t, string, handler) => unit = "delete"
-  @deprecated("Express 5.0 deprecates app.del(), use app.delete() instead")
-  @send external del: (t, string, handler) => unit = "del"
+  @deprecated("Express 5.0 deprecates app.del(), use app.delete() instead") @send
+  external del: (t, string, handler) => unit = "del"
   @send external patch: (t, string, handler) => unit = "patch"
   @send external put: (t, string, handler) => unit = "put"
   @send external all: (t, string, handler) => unit = "all"
@@ -164,8 +161,8 @@ module Router = {
   type paramHandler = (req, res, unit => unit, string, string) => unit
 
   @send external param: (t, string, paramHandler) => unit = "param"
-  @deprecated("deprecated as of v4.11.0")
-  @send external defineParamBehavior: ((string, 'a) => paramHandler) => unit = "param"
+  @deprecated("deprecated as of v4.11.0") @send
+  external defineParamBehavior: ((string, 'a) => paramHandler) => unit = "param"
 
   @send external route: string => t = "route"
 }
